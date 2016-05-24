@@ -1,0 +1,4 @@
+dist/*
+createGraph/concat/dist/*
+log.csv
+node_modules
