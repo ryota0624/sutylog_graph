@@ -2,3 +2,4 @@ dist/*
 createGraph/concat/dist/*
 log.csv
 node_modules
+.DS_Store
