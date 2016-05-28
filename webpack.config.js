@@ -20,6 +20,11 @@ module.exports = {
         loader: 'raw-loader',
         exclude: /node_modules/
       },
+      {
+        test: /\.json$/,
+        loader: 'raw-loader',
+        exclude: /node_modules/
+      },
     ]
   }
 }

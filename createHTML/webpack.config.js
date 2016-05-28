@@ -2,9 +2,9 @@ const webpack = require('webpack');
 const ExternalsPlugin = webpack.ExternalsPlugin;
 
 module.exports = {
-  entry: __dirname + "/index.js",
+  entry: __dirname + "/../browser/index.js",
   output: {
-    path: __dirname + "/concat/dist",
+    path: __dirname + "/dist",
     filename: 'out.js'
   },
   devtool: '#source-map',
@@ -17,6 +17,11 @@ module.exports = {
       },
       {
         test: /\.csv$/,
+        loader: 'raw-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.json$/,
         loader: 'raw-loader',
         exclude: /node_modules/
       },

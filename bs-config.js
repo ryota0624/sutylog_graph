@@ -21,7 +21,7 @@ module.exports = {
     },
     "files": [
         {
-            match: [__dirname+"/out.js"]
+            match: [__dirname+"/dist/out.js"]
         }
     ],
     "watchOptions": {},
