@@ -16,7 +16,5 @@ const start = (info) => {
   });
 }
 
-start({ path: '/Users/ryota/js/express/simpleServer/log.csv', name: 'strem', outputpath: __dirname + '/dist/graph.html' })
-.then(() => console.log('done')).catch(err => console.log(err));
 
 module.exports = start;

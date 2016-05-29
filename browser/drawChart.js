@@ -25,15 +25,45 @@ export function globalMemory(logData) {
   chart.draw(canvas);
 }
 
+function loadAverage(n, logData) {
+  const { canvas, tag } = createCanvas(n, n);
+  const chart = new LineChart();
+  chart.setLabels(logData.map(() => ''));
+
+  groupPid(logData).forEach(logArray => {
+    const data = logArray.map(log => log[n]);
+    chart.setData({ data , label: `pid:${logArray[0].pid}` });
+  });
+  const drawedChart = chart.draw(canvas);
+  return drawedChart;
+}
+
+function loadAverage1(logData) {
+  return loadAverage('loadAverage1', logData);
+}
+function loadAverage5(logData) {
+  return loadAverage('loadAverage5', logData);
+}
+function loadAverage15(logData) {
+  return loadAverage('loadAverage15', logData);
+}
+
+export function loadAverages(logData) {
+  loadAverage1(logData);
+  loadAverage5(logData);
+  loadAverage15(logData);
+}
+
 export function rss(logData) {
   const { canvas, tag } = createCanvas('rss', 'rss');
   const slider = document.createElement('input');
   const chart = new LineChart();
   const sliderVal = document.createElement('span');
-  sliderVal.innerHTML = 100;
+  const maxRss = Math.floor(Math.max.apply(null, logData.map(log => log.rss)) / 1048 / 1048 + 10);
+  sliderVal.innerHTML = maxRss;
   slider.setAttribute('type', 'range');
-  slider.setAttribute('value', '100');
-  slider.setAttribute('max', '300');
+  slider.setAttribute('value', maxRss);
+  slider.setAttribute('max', maxRss);
   slider.setAttribute('min', '30');
   slider.addEventListener('change', (ev) => {
     const v = Number(ev.target.value);
@@ -50,7 +80,7 @@ export function rss(logData) {
     yAxes: [{
       ticks: {
         min: 30,
-        max: 70
+        max: maxRss
       }
     }]
   });
