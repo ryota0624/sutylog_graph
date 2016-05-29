@@ -1,5 +1,5 @@
 dist/*
-createGraph/concat/dist/*
+createGraph/concat/dist/out.*
 log.csv
 node_modules
 .DS_Store
