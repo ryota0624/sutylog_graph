@@ -1,5 +1,5 @@
 const fs = require('fs');
-const concatHTML = () => {
+const concatHTML = (distpath) => {
   return new Promise((res, rej) => {
     fs.readFile(__dirname + '/temp.html', (err, fileBuff) => {
       if(err) rej(err);
@@ -8,7 +8,7 @@ const concatHTML = () => {
         if(err) rej(err);
         const jsFile = fileBuff.toString();
         const outHTML = htmlFile.replace('/*sutytemp*/', "<script>"+jsFile+"</script>");
-        fs.writeFile(__dirname + '/dist/index.html', outHTML, (err) => res(err));
+        fs.writeFile(distpath, outHTML, (err) => res(err));
       });
     })
   }) 

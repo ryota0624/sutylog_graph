@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const ExternalsPlugin = webpack.ExternalsPlugin;
 
 module.exports = {
-  entry: __dirname + "/createGraph/index.js",
+  entry: __dirname + "/browser/index.js",
   output: {
     filename: 'out.js',
     path: __dirname + "/dist"

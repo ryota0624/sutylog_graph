@@ -27,13 +27,39 @@ export function globalMemory(logData) {
 
 export function rss(logData) {
   const { canvas, tag } = createCanvas('rss', 'rss');
+  const slider = document.createElement('input');
   const chart = new LineChart();
+  const sliderVal = document.createElement('span');
+  sliderVal.innerHTML = 100;
+  slider.setAttribute('type', 'range');
+  slider.setAttribute('value', '100');
+  slider.setAttribute('max', '300');
+  slider.setAttribute('min', '30');
+  slider.addEventListener('change', (ev) => {
+    const v = Number(ev.target.value);
+    chart.setMaxValue(v);
+    chart.update();
+    sliderVal.innerHTML = v;
+  });
+  
+  tag.appendChild(slider);
+  tag.appendChild(sliderVal);
+  
   chart.setLabels(logData.map(() => ''));
+  chart.setScale({
+    yAxes: [{
+      ticks: {
+        min: 30,
+        max: 70
+      }
+    }]
+  });
   groupPid(logData).forEach(logArray => {
-    const rss = logArray.map(log => Math.floor(log.rss / 1048 / 1048));
+    const rss = logArray.map(log => log.rss / 1048 / 1048);
     chart.setData({ data: rss, label: `pid:${logArray[0].pid}` });
   });
-  chart.draw(canvas);
+  const drawedChart = chart.draw(canvas);
+  return drawedChart;
 }
 
 function createCanvas(tagName, canvasName) {

@@ -6,7 +6,7 @@ import { processMemory, rss } from './drawChart.js';
 const info = JSON.parse(rawinfo);
 
 const init = () => {
-  document.write('<h1>' + info.name + '</h1>')
+  document.write('<h1>' + info.name + '</h1>');
   const logData = csvToArray(csv);
   processMemory(logData);
   rss(logData);

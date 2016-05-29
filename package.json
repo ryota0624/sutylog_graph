@@ -1,5 +1,5 @@
 {
-  "name": "graph",
+  "name": "suty-graph",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "browser": "browser-sync start --config bs-config.js",
     "webpack": "webpack -w",
-    "start": "nws",
+    "start": "node index.js",
     "distlog": "ls | grep log | sort | head -n 1 > current.txt",
     "create:graph": "node createGraph/concat/fsconcat; open createGraph/concat/dist/index.html"
   },
