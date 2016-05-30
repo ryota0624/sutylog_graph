@@ -2,7 +2,8 @@ import LineChart from './lineChart';
 export function processMemory(logData) {
   const { canvas, tag } = createCanvas('hashmemory', 'hashedHeap');
   const chart = new LineChart();
-  chart.setLabels(logData.map((log, key) => ''));
+  const oneBlock = groupPid(logData)[0];
+  chart.setLabels(oneBlock.map(() => ''));
   function processMemoryDiv(log) {
     return Number(log['processMemCurrnet/MB']) / Number(log['processMemMax/MB']);
   }
@@ -28,7 +29,8 @@ export function globalMemory(logData) {
 function loadAverage(n, logData) {
   const { canvas, tag } = createCanvas(n, n);
   const chart = new LineChart();
-  chart.setLabels(logData.map(() => ''));
+  const oneBlock = groupPid(logData)[0];
+  chart.setLabels(oneBlock.map(() => ''));
 
   groupPid(logData).forEach(logArray => {
     const data = logArray.map(log => log[n]);
@@ -73,8 +75,8 @@ export function rss(logData) {
   
   tag.appendChild(slider);
   tag.appendChild(sliderVal);
-  
-  chart.setLabels(logData.map(() => ''));
+  const oneBlock = groupPid(logData)[0];
+  chart.setLabels(oneBlock.map(() => ''));
   chart.setScale({
     yAxes: [{
       ticks: {
