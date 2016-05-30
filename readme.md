@@ -1,3 +1,7 @@
+# install
+```
+npm install
+```
 # start dev
 ```
 npm run webpack
