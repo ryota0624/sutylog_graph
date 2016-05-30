@@ -4,7 +4,7 @@ export function processMemory(logData) {
   const chart = new LineChart();
   chart.setLabels(logData.map((log, key) => ''));
   function processMemoryDiv(log) {
-    return Number(log.processMemoryCur) / Number(log.processMemoryMax);
+    return Number(log['processMemCurrnet/MB']) / Number(log['processMemMax/MB']);
   }
   groupPid(logData).forEach(logArray => {
     const processMemory = logArray.map(processMemoryDiv);
@@ -39,15 +39,14 @@ function loadAverage(n, logData) {
 }
 
 function loadAverage1(logData) {
-  return loadAverage('loadAverage1', logData);
+  return loadAverage('la/1min', logData);
 }
 function loadAverage5(logData) {
-  return loadAverage('loadAverage5', logData);
+  return loadAverage('la/5min', logData);
 }
 function loadAverage15(logData) {
-  return loadAverage('loadAverage15', logData);
+  return loadAverage('la/15min', logData);
 }
-
 export function loadAverages(logData) {
   loadAverage1(logData);
   loadAverage5(logData);

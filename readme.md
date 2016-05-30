@@ -8,8 +8,8 @@ npm run browser
 ```
 const graphCreator = requrie('suty-graph');
 graphCreator({
-  path: '',
-  name: '',
-  outputpath: ''
+  path: '', //csvfile path
+  name: '', //filename
+  outputpath: '' //output path
 }).then(() => console.log('done'));
 ```
