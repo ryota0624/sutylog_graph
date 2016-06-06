@@ -5,7 +5,7 @@ export function processMemory(logData) {
   const oneBlock = groupPid(logData)[0];
   chart.setLabels(oneBlock.map(() => ''));
   function processMemoryDiv(log) {
-    return Number(log['processMemCurrnet/MB']) / Number(log['processMemMax/MB']);
+    return Number(log['hashUsed/MB']);
   }
   groupPid(logData).forEach(logArray => {
     const processMemory = logArray.map(processMemoryDiv);
@@ -25,6 +25,18 @@ export function globalMemory(logData) {
   chart.setData({ data: globalMemory, label: "globalMemory"});
   chart.draw(canvas);
 }
+
+export function responseTime(logData) {
+  const { canvas, tag } = createCanvas('responseTime', 'responseTime');
+  const chart = new LineChart();
+  chart.setLabels(logData.map((log, key) => ""));
+  const responseTimeArr = logData.map(i => (i.responseTime));
+  console.log(responseTimeArr)
+  const ave = responseTimeArr.reduce((pre, cur) => pre + cur,0) / responseTimeArr.length;
+  chart.setData({ data: responseTimeArr, label: `responseTime ave${ave}`});
+  chart.draw(canvas);
+}
+
 
 function loadAverage(n, logData) {
   const { canvas, tag } = createCanvas(n, n);
@@ -60,12 +72,12 @@ export function rss(logData) {
   const slider = document.createElement('input');
   const chart = new LineChart();
   const sliderVal = document.createElement('span');
-  const maxRss = Math.floor(Math.max.apply(null, logData.map(log => log.rss)) / 1048 / 1048 + 10);
+  const maxRss = Math.floor(Math.max.apply(null, logData.map(log => log["rss/MB"])));
   sliderVal.innerHTML = maxRss;
   slider.setAttribute('type', 'range');
   slider.setAttribute('value', maxRss);
   slider.setAttribute('max', maxRss);
-  slider.setAttribute('min', '30');
+  // slider.setAttribute('min', );
   slider.addEventListener('change', (ev) => {
     const v = Number(ev.target.value);
     chart.setMaxValue(v);
@@ -86,7 +98,7 @@ export function rss(logData) {
     }]
   });
   groupPid(logData).forEach(logArray => {
-    const rss = logArray.map(log => log.rss / 1048 / 1048);
+    const rss = logArray.map(log => log["rss/MB"]);
     chart.setData({ data: rss, label: `pid:${logArray[0].pid}` });
   });
   const drawedChart = chart.draw(canvas);

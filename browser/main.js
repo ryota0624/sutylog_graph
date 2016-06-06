@@ -1,7 +1,7 @@
 // import Chart from 'chart.js';
 import csv from '../log.csv';
 import rawinfo from '../loginfo.json';
-import { processMemory, rss, loadAverages } from './drawChart.js';
+import { processMemory, rss, loadAverages, responseTime } from './drawChart.js';
 
 const info = JSON.parse(rawinfo);
 
@@ -10,6 +10,7 @@ const init = () => {
   processMemory(logData);
   rss(logData);
   loadAverages(logData);
+  responseTime(logData);
   document.getElementById('title').innerHTML = '<h1>' + info.name + '</h1>';
 };
 
